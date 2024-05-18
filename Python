@@ -1,0 +1,29 @@
+import serial
+import time
+bluetooth_port = '/dev/tty.HC-05-DevB'
+
+bluetooth = serial.Serial(bluetooth_port, 9600, timeout=1)
+
+def turn_on_all_leds():
+    bluetooth.write(b'1')  # Send command to Arduino to turn on all LEDs
+    print("Turning on all LEDs")
+
+def turn_off_all_leds():
+    bluetooth.write(b'0')  # Send command to Arduino to turn off all LEDs
+    print("Turning off all LEDs")
+
+while True:
+    # Prompt user for action
+    action = input("Enter 'on' to turn on all LEDs, 'off' to turn off all LEDs, or 'q' to quit: ")
+
+    if action == 'on':
+        turn_on_all_leds()
+    elif action == 'off':
+        turn_off_all_leds()
+    elif action == 'q':
+        print("Exiting...")
+        break
+    else:
+        print("Invalid input. Please try again.")
+
+bluetooth.close()
